@@ -1,0 +1,12 @@
+<div class="list-group">
+  <% _.each(incidents, function(incident) { %>
+    <div class="list-group-item incident-details">
+      <span class="service label label-default">{{incident.get('service').name}}</span>
+      <span class="summary">
+        <% _.forOwn(incident.get('trigger_summary_data'), function(v,k) { %>
+          <span class="val {{k}}">{{v}}</span>
+        <% }); %>
+      </span>
+    </div>
+  <% }); %>
+</div>

@@ -1,0 +1,48 @@
+<!-- This template is horrendous -->
+
+<div class="weekly">
+  <ul class="nav nav-tabs">
+    <% _.each(links, function(link) { %>
+      <li
+        <% if(link.query===query) { %>class = "active"<% } %>>
+        <a href="incidents{{link.query}}">{{link.label}}</a>
+      </li>
+    <% }); %>
+  </ul>
+
+  <div class="info">
+    {{count}} incidents since {{start.toLocaleDateString()}}
+  </div>
+
+  <table>
+    <tr>
+      <th>&nbsp;</th>
+      <% for(var j=0; j<8; j++) { %>
+        <th>{{start.addDays(j).getShortDayOfWeek()}} {{start.addDays(j).toMonthDayString()}}</th>
+      <% } %>
+    </tr>
+
+    <% for(var i=0; i<24; i++) { %>
+      <tr>
+        <td class="time">{{ (i-12)%12 + ((i>12) ? 0 : 12) }}:00 {{(i>=12) ? "pm" : "am"}}</td>
+        <% for(var j=0; j<8; j++) { %>
+          <%
+            // Seriously, we should not be doing this in a template!!!
+            var dow = start.addDays(j).getDay();
+            var hourClass = (i>=9 && i<17 && dow>=1 && dow<=5) ? 'biz-hours' : 'off-hours'
+          %>
+          <% if(!ready || (j*24+i) > now_offset) { %>
+            <td class="status unknown {{hourClass}}">-</td>
+          <% } else if( hours[j*24+i].length === 0 ) { %>
+            <td class="status ok {{hourClass}}">&nbsp;</td>
+          <% } else { %>
+            <td class="status critical {{hourClass}}" data-incidents="{{ hours[j*24+i].join(',') }}">{{ hours[j*24+i].length }}</td>
+          <% } %>
+        <% } %>
+      </tr>
+    <% } %>
+  </table>
+
+  <div class="details"></div>
+</div>
+
