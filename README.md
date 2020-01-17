@@ -7,7 +7,7 @@ project such that this can feel like a natural extension of metadash - ideally t
 
 Here's a sample screenshot, but be warned, much of the functionality is incomplete (i.e. the entire top navbar)
 
-![ScreenShot](https://dl.dropboxusercontent.com/u/39033486/pagerdash-screenshot.png)
+![ScreenShot](https://raw.githubusercontent.com/anowell/pagerdash/master/pagerdash-screenshot.png)
 
 setup
 =====
